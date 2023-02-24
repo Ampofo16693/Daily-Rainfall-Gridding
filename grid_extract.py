@@ -18,7 +18,7 @@ os.chdir
 
 
 #[yr_start,yr_end]=sp.genfromtxt('try.csv')#,delimiter=',')
-[yr_start,yr_end]=[2010,2015]
+[yr_start,yr_end]=[1960,2015]
 
 for yy in range(np.int(yr_start),np.int(yr_end)+1):     #loop through the years you want to vertically stack.
    for mm in range(1,13):              #loop through months 1 to 12.  (The 13 here limits it to 12.)
@@ -27,11 +27,17 @@ for yy in range(np.int(yr_start),np.int(yr_end)+1):     #loop through the years 
         elif (mm==4 or mm==6 or mm==9 or mm==11):
             days=30
         elif (mm==2):           # Condition for identifying number of days in February for both Ordinary and Leap years.
-            if (yy%4==0):       #  The % sign used here represents the modulos.
+            if ( yy % 4 == 0 )):
+              if ( yy % 100 == 0 ): 
+                   if ( yy % 400 == 0 ):
+                     days=29
+                   else
+                     days=28
+              else
                 days=29
-            elif (yy%4>0):
-                days=28
-            
+            else
+              days=28
+               
         for dd in range(1,days+1):      #After completing the condition for days in a month, you now loop through the days, from day 1 to the final day of each month.
             pr=[]                   #create empty arrays for appending data
             
