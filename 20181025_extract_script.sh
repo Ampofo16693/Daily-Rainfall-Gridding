@@ -27,21 +27,28 @@ do
 	  days=30
 	  
       elif [ "$mm" -eq "02" ] ; then
-	  
-           if [ `expr $yyyy % 4` -eq "0" ] ; then
-           days=29
-           elif [ `expr $yyyy % 4` -ne "0" ] ; then
-           days=28
-          fi
-	fi
+		if [ $((year % 4)) -eq 0 ]; then
+		  if [ $((year % 100)) -eq 0 ]; then 
+			    if [ $((year % 400)) -eq 0 ]; then
+			      days=29
+			    else
+			      days=28
+			    fi
+		  else
+		    days=29
+		  fi
+		else
+		  days=28
+		fi          
+fi
 
-      dd=1
-      while [ $dd -le $days ]
-      do
-	  
-      if [ $dd -le 9 ] ; then
-	dd=0${dd}
-      fi
+dd=1
+while [ $dd -le $days ]
+do
+
+if [ $dd -le 9 ] ; then
+dd=0${dd}
+fi
 
 	mv Daily_Data/${dd}.nc Daily_Data/${yyyy}_${mm}_${dd}.nc
 
